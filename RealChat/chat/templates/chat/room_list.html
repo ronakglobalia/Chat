@@ -1,0 +1,29 @@
+{% extends "chat/head.html" %}
+{% load static %}
+
+{% block titleblock %}
+Room List
+{% endblock titleblock %}
+{% block bodyblock %}
+
+<div class="container my-5">
+    <div class="card">
+        <div class="container flex, justify-center my-2">
+            <h1>Hello , Welcome to my chat site ! {{request.user}}</h1>
+            {% if request.user.is_authenticated %}
+            <div> Logout the chat Page <a href="{% url 'logout-user' %}">Logout</a></div>
+            {% endif %}
+        </div>
+        <div class="container flex justify-center" id="id_chat_item_container" style="font-size: 20px"></div><br />
+        <div class="card-body">
+            {% for room in rooms %}
+            <div class="alert alert-primary" role="alert">
+                <a href="{% url 'chat' room.room_id %}">
+                    {{room.name}}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock bodyblock %}

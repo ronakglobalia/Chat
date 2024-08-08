@@ -1,0 +1,37 @@
+{% extends "chat/head.html" %}
+{% load static %}
+{% block titleblock %}
+Create Room
+{% endblock titleblock %}
+{% block bodyblock %}
+
+<div class="container my-5">
+    <div class="card">
+        <div class="container flex, justify-center my-2">
+            <h1>Hello , Welcome to my chat site ! {{request.user}}</h1>
+            {% if request.user.is_authenticated %}
+            <div> Logout the chat Page <a href="{% url 'logout-user' %}">Logout</a></div>
+            {% endif %}
+        </div>
+        <div class="container flex justify-center" id="id_chat_item_container" style="font-size: 20px"></div><br />
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleInputRoom1" class="form-label">Room Name</label>
+                    <input type="text" class="form-control" id="exampleInputRoon1" aria-describedby="roomHelp" name="room">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputRoom1" class="form-label">Room Name</label>
+                    <select class="form-control" name="member" id="member_id" multiple>
+                        {% for member in members %}
+                        <option value="{{member.id}}">{{member.username}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock bodyblock %}

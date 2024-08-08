@@ -1,0 +1,38 @@
+{% extends "chat/head.html" %}
+{% load static %}
+
+
+
+{% block titleblock %}
+Room Chat
+{% endblock titleblock %}
+
+{% block bodyblock %}
+<div class="container my-5">
+    <div class="card">
+        <div class="container flex, justify-center my-2">
+            <h1>Hello , Welcome to my chat site ! {{request.user}}</h1>
+            {% if request.user.is_authenticated %}
+            <div> Logout the chat Page <a href="{% url 'logout-user' %}">Logout</a></div>
+            {% endif %}
+        </div>
+        <div class="container flex justify-center" id="id_chat_item_container" style="font-size: 20px">
+            {% for message in messages %}
+                <div>
+                    {{message.user.username}} : {{message.text_data}}
+                </div>
+            {% endfor %}
+        </div><br />
+        <div class="card-body">
+            <div>
+				Text Message: <input type="text" id="id_message_send_input" class="form-label" name="text_msg"/><br />
+				File Message: <input type="file" id="id_media_message_send_input" class="form-label" name="file_msg"/><br />
+				<button type="submit" id="id_message_send_button">Send Message</button>
+			</div>
+        </div>
+    </div>
+</div>
+{% endblock bodyblock %}
+{% block scriptblock %}
+<script src="{% static '/js/async-socket.js' %}"></script>
+{% endblock scriptblock %}
